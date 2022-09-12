@@ -11,7 +11,6 @@ public class ApplicationTest {
     @BeforeAll
     static void setUpAll() {
         WebDriverManager.chromedriver().setup();
-        //System.setProperty("webdriver.chrome.driver", "driver/win/chromedriver.exe");
     }
 
     @BeforeEach
@@ -21,7 +20,6 @@ public class ApplicationTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
-        //driver = new ChromeDriver();
     }
 
     @AfterEach
@@ -33,11 +31,11 @@ public class ApplicationTest {
     @Test
     void validTest() {
         driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("[type=\"text\"]")).sendKeys("Михаил");
+        driver.findElement(By.cssSelector("[type=\"text\"]")).sendKeys("Иван Петров-Сидоров");
         driver.findElement(By.cssSelector("[type=\"tel\"]")).sendKeys("+79876543210");
-        driver.findElement(By.className("checkbox__box")).click();
+        driver.findElement(By.cssSelector("[data-test-id=\"agreement\"]")).click();
         driver.findElement(By.className("button__content")).click();
-        String text = driver.findElement(By.className("paragraph")).getText();
+        String text = driver.findElement(By.cssSelector("[data-test-id=\"order-success\"]")).getText();
         Assertions.assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
     }
 }
